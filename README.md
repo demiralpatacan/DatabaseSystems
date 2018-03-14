@@ -25,47 +25,49 @@ The main element of a relational database is the **relation**, which are essenti
 
 ### Table
 
-Database object that consists of row and colums, and store data. It is the simplest form of data storage in relational databases. Example: CUSTOMERS table
+Database object that consists of row and colums, and store data. It is the simplest form of data storage in relational databases. Example: EMPLOYEE table
 
-+----+----------+-----+-----------+----------+
-| ID | NAME     | AGE | ADDRESS   | SALARY   |
-+----+----------+-----+-----------+----------+
-|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |
-|  2 | Khilan   |  25 | Delhi     |  1500.00 |
-|  3 | kaushik  |  23 | Kota      |  2000.00 |
-|  4 | Chaitali |  25 | Mumbai    |  6500.00 |
-|  5 | Hardik   |  27 | Bhopal    |  8500.00 |
-|  6 | Komal    |  22 | MP        |  4500.00 |
-|  7 | Muffy    |  24 | Indore    | 10000.00 |
-+----+----------+-----+-----------+----------+
+![Table](src/table.png)
 
 ### Field
 
-Smaller entity of a table that is designed to maintain specific information about every recordin the table. Example: ID, NAME, AGE, ADDRESS, SALARY
+Smaller entity of a table that is designed to maintain specific information about every recordin the table. Example: Position Title, Education Requirements, Functional Area, Max Pay, Min Pay
 
 ### Record
 
-A row in a table. Example:
+A row in a table. 
+Example: Record of Executive Assistant
 
-+----+----------+-----+-----------+----------+
-|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |
-+----+----------+-----+-----------+----------+
+### Entity, Attribute, Domain
 
-### Column
+Entities are things about which information is gathered. Fields represents the attributes of the entity. Attributes are units that define or characterize entities. Example: the entity is a pen with size, color and weight as attributes.
 
-Vertical entity in a table. Example:
+![Entities_Attributes](src/entity.png)
 
-+-----------+
-| ADDRESS   |
-+-----------+
-| Ahmedabad |
-| Delhi     |
-| Kota      |
-| Mumbai    |
-| Bhopal    |
-| MP        |
-| Indore    |
-+----+------+
+In the table, all of the attributes have a domain that specifies which kind of information is stored in the attribute. Do not confuse domains with data types. Data types are special constraints linked with columns, while domains are description of information in the attributes. In the example, attribute is Name_of_Pen while the domain is Brand. It is good to use a domain that describes the attribute, because it can help you improve the usability and readability of database entries.
+
+### SQL
+
+Structured Query Language is designed for relational databases. It is not procedural programming language such as Java, C, C++. It does not define how a program must perform its functions. It focuses on the results of a program's functions.
+
+### SQL Statements
+
+While managing a database, we can use different types of statements, divided according to their functions.
+
+1. **Data Definition Language (DDL)**
+
+The statements that generate, delete or modify database objects such as schema, table, trigger.
+	- Example: CREATE TABLE, ALTER TABLE, DROP TABLE
+
+2. **Data Control Language (DCL)**
+
+The statements that specify users or programs that can access the objects inside the database.
+	- Example: GRANT, REVOKE
+
+3. **Data Manipulation Language (DML)**
+
+The statements that add, modify, delete, or retrieve information stored inside the database.
+	- Example: SELECT, UPDATE, INSERT, DELETE
 
 ### Data Types (Transact-SQL)
 
@@ -93,4 +95,14 @@ A NULL value is a value in a field that appears to be blank, which means a field
 
 ### SQL Constraints
 
+Some most commonly used constraints are:
+
+- **NOT NULL:** Ensures that a column cannot have a NULL value.
+- **DEFAULT:** Provides a default value for a column when none is specified.
+- **UNIQUE:** Prevents two records from having identical values in a column.
+- **PRIMARY KEY:** A primary key is a field in a table which uniquely identifies each row/record in a database table. Primary keys must contain unique values. A primary key column cannot have NULL values.
+
+Primary Keys index and physically order tables. Looking up the values by using Primary Keys is faster than using other values in a row.
+- **FOREIGN KEY:** A Foreign Key is a column or a combination of columns whose values match a Primary Key in a different table. The relationship between 2 tables matches the Primary Key in one of the tables with a Foreign Key in the second table.
+- **CHECK:** It ensures that all values in a column satisfy certain conditions.
 
