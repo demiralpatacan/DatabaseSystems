@@ -152,3 +152,21 @@ ALTER DATABASE mynewdb SET SINGLE-USER With Rollback Immediate
 ```
 
 With Rollback Immediate option, it rollbacks all incomplete transactions and closes the connection to the database.
+
+### Create Table
+
+Assume that we have created the database "mydb" in the previous step. We have empty database. First, we need to decide what kind of data is stored. It depends on the business needs. In the example below, we need to store employee information.
+```sql
+USE [mydb]
+GO
+
+CREATE TABLE EMPLOYEE(
+	EmployeeId int NOT NULL Primary Key,
+	LastName nvarchar(50) NOT NULL,
+	Country nvarchar(50) NOT NULL,
+	DepartmentID int 
+	)
+```
+
+![Example Table](src/create_table.png)
+
