@@ -76,7 +76,7 @@ The statements that add, modify, delete, or retrieve information stored inside t
 Data types define what type of data a column can contain.
 
 - Exact Numerics
-	- bigint, bit, decimal, int, money, numeric, smallint, smallmoney, tinyiny
+	- bigint, bit, decimal, int, money, numeric, smallint, smallmoney, tinyint
 - Approximate Numerics
 	- float, real
 - Date and Time
@@ -108,3 +108,47 @@ Primary Keys index and physically order tables. Looking up the values by using P
 - **FOREIGN KEY:** A Foreign Key is a column or a combination of columns whose values match a Primary Key in a different table. The relationship between 2 tables matches the Primary Key in one of the tables with a Foreign Key in the second table.
 - **CHECK:** It ensures that all values in a column satisfy certain conditions.
 
+# Query Practices
+
+### Create Database
+
+There are two kinds of database. 
+1. System Database: Database provided by SQL Server Manager Studio for proper functioning of SQL Server.
+2. User Defined Database: Any database created by user.
+
+A database can be created graphically by using SQL Server Manager Studio (RDBMS) or typing a query.
+
+```sql
+CREATE DATABASE mydb
+```
+
+Whenever a database is created, two additional files related with the database are generated. 
+1. MDF file (Data File): This is the data file which containts the actual data.
+2. LDF file (Transaction Log File): Used to recover the database. 
+
+### Rename Database
+
+If we want to rename our database mydb as "mynewdb"; we use the following query containing DDL a statement.
+```sql
+ALTER DATABASE mydb MODIFY Name= mynewdb
+```
+
+Or we can use **System Stored Procedure** to rename it.
+```sql
+sp_renameDB 'mydb', 'mynewdb'
+```
+
+### Drop Database
+
+We use DROP DDL to delete database instances. It removes the related mdf and ldf files. If we want to delete our new database; then we write:
+```sql
+DROP DATABASE mynewdb
+```
+
+**NOTE:** If the database is in use by another user, deleting query does not work.	It returns an error, saying "Cannot drop database, because it is currently in use". It also shows that the database is in **MULTI-USER MODE**. If it needs to be deleted while in multi-user mode, first the database should be set to **SINGLE-USER MODE**, then it can be deleted. System databases cannot be dropped.
+
+```sql
+ALTER DATABASE mynewdb SET SINGLE-USER With Rollback Immediate
+```
+
+With Rollback Immediate option, it rollbacks all incomplete transactions and closes the connection to the database.
