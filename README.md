@@ -1,7 +1,7 @@
-# **DatabaseSystems**
+# **Database Systems**
 Database Systems practices with T-SQL using Microsoft SQL Server
 
-# Introduction to Databases
+# Introduction to Database Systems
 
 ## What Is Database?
 Collection of information (data).
@@ -25,18 +25,20 @@ The main element of a relational database is the **relation**, which are essenti
 
 ### Table
 
-Database object that consists of row and colums, and store data. It is the simplest form of data storage in relational databases. Example: EMPLOYEE table
+Database object that consists of row and colums, and store data. It is the simplest form of data storage in relational databases. 
+- Example: EMPLOYEE table
 
 ![Table](src/table.png)
 
 ### Field
 
-Smaller entity of a table that is designed to maintain specific information about every recordin the table. Example: Position Title, Education Requirements, Functional Area, Max Pay, Min Pay
+Smaller entity of a table that is designed to maintain specific information about every recordin the table.
+- Example: Position Title, Education Requirements, Functional Area, Max Pay, Min Pay
 
 ### Record
 
 A row in a table. 
-Example: Record of Executive Assistant
+- Example: Record of Executive Assistant
 
 ### Entity, Attribute, Domain
 
@@ -57,17 +59,17 @@ While managing a database, we can use different types of statements, divided acc
 1. **Data Definition Language (DDL)**
 
 The statements that generate, delete or modify database objects such as schema, table, trigger.
-	- Example: CREATE TABLE, ALTER TABLE, DROP TABLE
+- Example: CREATE TABLE, ALTER TABLE, DROP TABLE
 
 2. **Data Control Language (DCL)**
 
 The statements that specify users or programs that can access the objects inside the database.
-	- Example: GRANT, REVOKE
+- Example: GRANT, REVOKE
 
 3. **Data Manipulation Language (DML)**
 
 The statements that add, modify, delete, or retrieve information stored inside the database.
-	- Example: SELECT, UPDATE, INSERT, DELETE
+- Example: SELECT, UPDATE, INSERT, DELETE
 
 ### Data Types (Transact-SQL)
 
