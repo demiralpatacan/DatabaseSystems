@@ -157,8 +157,7 @@ With Rollback Immediate option, it rollbacks all incomplete transactions and clo
 
 Assume that we have created the database "mydb" in the previous step. We have empty database. First, we need to decide what kind of data is stored. It depends on the business needs. In the example below, we need to store employee information.
 ```sql
-USE [mydb]
-GO
+USE mydb
 
 CREATE TABLE EMPLOYEE(
 	EmployeeId int NOT NULL Primary Key,
@@ -167,6 +166,13 @@ CREATE TABLE EMPLOYEE(
 	DepartmentID int 
 	)
 ```
+Then we got a table like the following.
 
 ![Example Table](src/create_table.png)
 
+Now assume that we have another table, called COUNTRY, which has a primary key, named Country_Name. We better add a FOREIGN KEY constraint to prevent invalid data being inserted into the Country column in the EMPLOYEE table. So, the foreign key Country points to a primary key in the table COUNTRY.
+
+```sql
+ALTER TABLE EMPLOYEE Add Constraint Employee_Country_FK
+FOREIGN KEY (Country) References COUNTRY(Country_Name) 
+```
