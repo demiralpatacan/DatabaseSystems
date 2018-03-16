@@ -108,7 +108,7 @@ Primary Keys index and physically order tables. Looking up the values by using P
 - **FOREIGN KEY:** A Foreign Key is a column or a combination of columns whose values match a Primary Key in a different table. The relationship between 2 tables matches the Primary Key in one of the tables with a Foreign Key in the second table.
 - **CHECK:** It ensures that all values in a column satisfy certain conditions.
 
-# Create, Alter And Drop
+## Create, Alter And Drop
 
 ### Create Database
 
@@ -178,7 +178,7 @@ Now assume that we have another table, called COUNTRY, which has a primary key, 
 ALTER TABLE EMPLOYEE Add Constraint Employee_Country_FK
 FOREIGN KEY (Country) References COUNTRY(Country_Name) 
 ```
-# Use Constraints
+## Use Constraints
 
 ### Default Constraint
 
@@ -210,7 +210,7 @@ ADD Constraint Employee_Age_Ch CHECK (Age >= 20)
 
 If we try to insert a new row, containing age value below 20, SQL Server Management Studio gives an error. By this way, we prevent data to being inserted.
 
-### Identity Column
+## Identity Column
 
 When we want to add a new record in to the table, we may use
 ```sql
