@@ -108,7 +108,7 @@ Primary Keys index and physically order tables. Looking up the values by using P
 - **FOREIGN KEY:** A Foreign Key is a column or a combination of columns whose values match a Primary Key in a different table. The relationship between 2 tables matches the Primary Key in one of the tables with a Foreign Key in the second table.
 - **CHECK:** It ensures that all values in a column satisfy certain conditions.
 
-# Query Practices
+# Create, Alter And Drop
 
 ### Create Database
 
@@ -163,16 +163,72 @@ CREATE TABLE EMPLOYEE(
 	EmployeeId int NOT NULL Primary Key,
 	LastName nvarchar(50) NOT NULL,
 	Country nvarchar(50) NOT NULL,
-	DepartmentID int 
+	DepartmentID int NULL
 	)
 ```
 Then we got a table like the following.
 
 ![Example Table](src/create_table.png)
 
+### Alter Table
+
 Now assume that we have another table, called COUNTRY, which has a primary key, named Country_Name. We better add a FOREIGN KEY constraint to prevent invalid data being inserted into the Country column in the EMPLOYEE table. So, the foreign key Country points to a primary key in the table COUNTRY.
 
 ```sql
 ALTER TABLE EMPLOYEE Add Constraint Employee_Country_FK
 FOREIGN KEY (Country) References COUNTRY(Country_Name) 
+```
+# Use Constraints
+
+### Default Constraint
+
+Assume that we want to add Language column into our EMPLOYEE database, and everybody speaks English by default. Let's add the new Language column.
+
+```sql
+ALTER TABLE EMPLOYEE Add Language nvarchar(50) NOT NULL
+Constraint Employee_Language_Def
+DEFAULT English
+```
+
+To drop the constraint:
+```sql
+ALTER TABLE EMPLOYEE
+DROP Employee_Language_Def
+```
+
+### Check Constraint
+
+![Example Table](src/create_table.png)
+
+Assume that we have the same table, we want to add new column Age, then we want to make sure that we have no employees under age 20. 
+
+```sql
+ALTER TABLE EMPLOYEE
+ADD Column Age
+ADD Constraint Employee_Age_Ch CHECK (Age >= 20)
+```
+
+If we try to insert a new row, containing age value below 20, SQL Server Management Studio gives an error. By this way, we prevent data to being inserted.
+
+### Identity Column
+
+When we want to add a new record in to the table, we may use
+```sql
+INSERT INTO EMPLOYEE Values (4, "Gates", "USA", 2)
+```
+
+However, in this case, we have to specify the EmployeeId which is the PRIMARY KEY of the table. We know that our table have 3 records, so we can add the new record of the Employee "Gates" with EmployeeId "4".
+
+What if we have automatic system such as when user creates an account in a webpage, and the user has to be added into the database? In such cases, we use IDENTITY COLUMN to generate automatically "EmployeId"  value, so that user does not need to provide EmployeeId.
+
+You cannot alter the existing columns for identity. You need either to create a new table with identity, or to create a new column with identity.
+```sql
+CREATE TABLE EMPLOYEE1(
+	EmployeeId int NOT NULL Identity(1,1 ) Primary Key,
+	LastName nvarchar(50) NOT NULL,
+	Country nvarchar(50) NOT NULL,
+	DepartmentID int NULL
+	)
+
+INSERT INTO EMPLOYEE Values ("Gates", "USA", 2)
 ```
