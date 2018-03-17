@@ -178,7 +178,6 @@ Now assume that we have another table, called COUNTRY, which has a primary key, 
 ALTER TABLE EMPLOYEE Add Constraint Employee_Country_FK
 FOREIGN KEY (Country) References COUNTRY(Country_Name) 
 ```
-## Use Constraints
 
 ### Default Constraint
 
@@ -210,7 +209,7 @@ ADD Constraint Employee_Age_Ch CHECK (Age >= 20)
 
 If we try to insert a new row, containing age value below 20, SQL Server Management Studio gives an error. By this way, we prevent data to being inserted.
 
-## Identity Column
+### Identity Column
 
 When we want to add a new record in to the table, we may use
 ```sql
@@ -232,3 +231,112 @@ CREATE TABLE EMPLOYEE1(
 
 INSERT INTO EMPLOYEE Values ("Gates", "USA", 2)
 ```
+
+### Joins
+
+![Orders Table](src/Orders.png)
+
+![Customers Table](src/Customers.png)
+
+1. **Inner Join:**
+
+INNER JOIN selects records that have matching values in both tables.
+
+![Inner Join](src/innerjoin.png)
+
+Assume that we have two tables, named Orders and Customers, and we want to see which customer has ordered what. We can pull OrderIDs from the Orders table, but the table does not contain customer names. Therefore, we need to join two tables.
+
+
+```sql
+SELECT Orders.OrderID, Customers.CustomerName
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
+```
+
+2. **Left Join:**
+
+LEFT JOIN returns all records from the left table (table1), and the matched records from the right table (table2). The result is NULL from the right side, if there is no match.
+
+![Left Join](src/leftjoin.png)
+
+Now assume that we want to see all customers, and any orders they might have. Even if there are no matches in the Orders table, we pull all customer names from the Customers table.
+
+```sql
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+ORDER BY Customers.CustomerName;
+```
+
+3. **Right Join:**
+
+It's the same, but right type of the previous function.
+
+![Right Join](src/rightjoin.png)
+
+4. **Full Outer Join:**
+
+The FULL OUTER JOIN keyword returns all records when there is a match in either left (table1) or right (table2) table records.
+
+![Full Outer Join](src/fullouterjoin.png)
+
+```sql
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+FULL OUTER JOIN Orders ON Customers.CustomerID=Orders.CustomerID
+ORDER BY Customers.CustomerName;
+```
+
+It returns all records from Customers table, and all records from Orders. The result may look like this:
+
+![Result](src/fojresult.png)
+
+### Union
+
+UNION operator combines the result of two or more SELECT statements.
+
+- Each SELECT statement within UNION must have the same number of columns
+- The columns must also have similar data types
+- The columns in each SELECT statement must also be in the same order
+
+```sql
+SELECT column_name(s) FROM table1
+UNION
+SELECT column_name(s) FROM table2;
+```
+
+It selects only distinct values. To allow to select also duplicate values, use UNION ALL.
+
+### Group By
+
+GROUP BY is the statement used with **Aggregrate Functions** such as COUNT, MAX, MIN, SUM, AVG. This is the main difference from the WHERE statement.
+
+![Group By](src/groupby.png)
+
+Assume that we want to list the number of customers in each country, sorted high to low:
+
+```sql
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+ORDER BY COUNT(CustomerID) DESC;
+```
+
+![Result Group By](src/resgroup.png)
+
+### Having
+
+The HAVING clause was added to SQL because the WHERE keyword could not be used with aggregate functions.
+
+![Having By](src/groupby.png)
+
+Assume that we want to list the number of customers in each country where the number of customers more than 5:
+
+```sql
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+HAVING COUNT(CustomerID) > 5;
+```
+
+![Result Having](src/reshaving.png)
